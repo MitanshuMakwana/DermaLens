@@ -205,28 +205,6 @@ Upload an image file and receive:
 
 ---
 
-## Docker Support
-
-### Build Image
-
-```bash
-docker build -t dermalens .
-```
-
-### Run Container
-
-```bash
-docker run -p 5000:5000 dermalens
-```
-
-Open:
-
-```text
-http://localhost:5000
-```
-
----
-
 ## Future Improvements
 
 - Multi-Class Skin Disease Classification
