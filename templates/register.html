@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center min-vh-75 animate-on-scroll delay-1 py-5">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="glass-panel p-5 text-center">
+            
+            <div class="mb-4">
+                <div class="bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px; font-size: 2rem;">
+                    <i class="bi bi-person-plus-fill"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-1">Create an Account</h3>
+                <p class="text-muted small">Join DermaLens for intelligent AI insights</p>
+            </div>
+
+            <form method="POST" class="text-start">
+                
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="name" id="floatingName" placeholder="Full Name" required>
+                    <label for="floatingName" class="text-muted"><i class="bi bi-person me-2"></i>Full Name</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="email" id="floatingEmail" placeholder="name@example.com" required>
+                    <label for="floatingEmail" class="text-muted"><i class="bi bi-envelope me-2"></i>Email address</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword" class="text-muted"><i class="bi bi-key me-2"></i>Password</label>
+                </div>
+
+                <button class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm py-3 mb-3 text-white" style="background-color: var(--secondary); border: none;" type="submit">
+                    Create Account
+                </button>
+                
+                <div class="text-center mt-4">
+                    <p class="text-muted small mb-0">Already have an account? <a href="{{ url_for('login') }}" class="text-primary fw-bold text-decoration-none" style="color: var(--secondary) !important;">Sign in here</a></p>
+                </div>
+                
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .min-vh-75 { min-height: 75vh; }
+</style>
+
+{% endblock %}

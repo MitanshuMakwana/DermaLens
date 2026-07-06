@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.predict-bg {
+    position: relative;
+    padding: 60px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.predict-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* We'll handle the background image inline on the div itself to avoid Jinja interpolation issues in the style tag */
+    background: linear-gradient(135deg, rgba(13,110,253,0.85), rgba(32,201,151,0.85));
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Custom Scanning Animation overlay */
+.scan-line {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    top: 0;
+    left: 0;
+    animation: scan 2s linear infinite;
+    display: none;
+    z-index: 10;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    50% { top: 100%; }
+    100% { top: 0; }
+}
+
+#loading-state {
+    display: none;
+}
+</style>
+
+<div class="predict-bg shadow-lg animate-on-scroll" style="background-image: linear-gradient(135deg, rgba(13,110,253,0.85), rgba(32,201,151,0.85));">
+    <div class="container position-relative z-index-1 text-center text-white mb-5 mt-4">
+        <h1 class="display-5 fw-bold mb-3">Skin Cancer Analysis</h1>
+        <p class="lead" style="max-width: 600px; margin: 0 auto;">
+            Upload a clear, well-lit image of the skin lesion for our AI to analyze.
+        </p>
+    </div>
+
+    <div class="container z-index-1">
+        <!-- UPLOAD CARD -->
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="glass-panel p-4 p-md-5 mb-5 mx-2">
+                    
+                    <form method="POST" enctype="multipart/form-data" id="upload-form">
+                        
+                        <div class="upload-zone mb-4" id="drop-zone">
+                            
+                            <input class="file-input-hidden" type="file" name="file" id="file-input" accept="image/*" required>
+                            
+                            <div id="placeholder-text">
+                                <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                                <h5 class="fw-bold mb-2">Drag & Drop Image Here</h5>
+                                <p class="text-muted mb-0">or click to browse from your device</p>
+                                <small class="text-secondary mt-2 d-block">Supported formats: JPG, PNG, JPEG</small>
+                            </div>
+
+                            <div class="position-relative d-inline-block">
+                                <img id="image-preview" src="#" alt="Preview">
+                                <div class="scan-line" id="scan-line"></div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Loading State -->
+                        <div id="loading-state" class="text-center py-3">
+                            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <h5 class="mt-3 text-primary fw-bold">Analyzing Image...</h5>
+                            <p class="text-muted small">Please wait while our AI processes the data.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill py-3 fw-bold shadow-sm" id="analyze-btn" disabled>
+                            <i class="bi bi-magic me-2"></i> Analyze Image
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic RESULT SECTION will be injected here via script.js -->
+        <div id="dynamic-results-section-placeholder"></div>
+
+        <!-- History Section -->
+        {% if history %}
+        <style>
+            .history-carousel {
+                display: flex;
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                gap: 1.5rem;
+                padding-bottom: 1rem;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(255,255,255,0.5) transparent;
+            }
+            .history-carousel::-webkit-scrollbar { height: 8px; }
+            .history-carousel::-webkit-scrollbar-track { background: transparent; }
+            .history-carousel::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.5); border-radius: 20px; }
+            
+            .history-card {
+                flex: 0 0 300px; /* Fixed width for each card */
+                transition: transform 0.3s ease;
+            }
+            .history-card:hover { transform: translateY(-5px); }
+        </style>
+        
+        <div class="row justify-content-center mt-5 mb-4 animate-on-scroll">
+            <div class="col-lg-11">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-bold text-white mb-0"><i class="bi bi-clock-history me-2"></i>Your Scan History</h3>
+                    <div>
+                        <button class="btn btn-sm btn-light rounded-circle me-1" onclick="scrollHistory(-320)"><i class="bi bi-chevron-left"></i></button>
+                        <button class="btn btn-sm btn-light rounded-circle" onclick="scrollHistory(320)"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="history-carousel" id="history-carousel">
+                    {% for item in history %}
+                    <div class="history-card">
+                        <div class="glass-panel p-3 h-100 shadow-sm d-flex flex-column text-start">
+                            <div class="position-relative mb-3 flex-grow-1 text-center" style="min-height: 150px;">
+                                <img src="{{ item.image_path }}" class="img-fluid rounded-3 shadow-sm" style="max-height: 180px; width: 100%; object-fit: cover;" alt="Past Scan">
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1 {{ 'text-danger' if item.diagnosis == 'Malignant' else 'text-success' }}">
+                                    <i class="bi {{ 'bi-exclamation-triangle-fill' if item.diagnosis == 'Malignant' else 'bi-shield-check' }} me-2"></i>{{ item.diagnosis }}
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-muted small fw-bold">Confidence</span>
+                                    <span class="badge {{ 'bg-danger' if item.diagnosis == 'Malignant' else 'bg-success' }}">{{ item.confidence }}%</span>
+                                </div>
+                                <hr class="my-2 opacity-25">
+                                <p class="text-dark small mb-0 fw-medium">
+                                    <i class="bi bi-calendar3 text-muted me-2"></i>
+                                    <span class="local-time" data-utc="{{ item.timestamp.isoformat() + 'Z' }}">{{ item.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Script to handle scrolling and local time -->
+                <script>
+                    function scrollHistory(offset) {
+                        const carousel = document.getElementById('history-carousel');
+                        if (carousel) carousel.scrollBy({ left: offset, behavior: 'smooth' });
+                    }
+
+                    // Convert UTC database timestamps to User's Local Time instantly
+                    document.addEventListener('DOMContentLoaded', () => {
+                        document.querySelectorAll('.local-time').forEach(el => {
+                            const utcDateStr = el.getAttribute('data-utc');
+                            if (utcDateStr) {
+                                const dateObj = new Date(utcDateStr);
+                                if (!isNaN(dateObj)) {
+                                    el.innerHTML = dateObj.toLocaleString(undefined, {
+                                        year: 'numeric', month: 'short', day: 'numeric', 
+                                        hour: 'numeric', minute: '2-digit', hour12: true
+                                    });
+                                }
+                            }
+                        });
+                    });
+                </script>
+
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

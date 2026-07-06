@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Page Header -->
+<div class="text-center mb-5 animate-on-scroll">
+    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 fw-semibold">
+        ABOUT US
+    </span>
+    <h1 class="display-4 fw-bold text-dark section-title">DermaLens System</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        Empowering early detection through AI-driven skin cancer analysis.
+    </p>
+</div>
+
+<!-- ================= FIRST SECTION ================= -->
+<div class="row align-items-center mb-5 pb-4">
+
+    <!-- LEFT SIDE IMAGE -->
+    <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll delay-1 relative-container text-center">
+        <div class="glass-panel p-3 d-inline-block position-relative">
+            <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded-4 shadow-sm"
+                alt="DermaLens Medical AI System"
+                onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1480&auto=format&fit=crop'"
+                style="max-height: 450px; object-fit: cover;">
+
+            <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white shadow-sm p-3 border border-light"
+                style="animation: float 4s infinite ease-in-out;">
+                <i class="bi bi-heart-pulse-fill text-danger fs-3"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE TEXT -->
+    <div class="col-lg-6 ps-lg-5 animate-on-scroll delay-2">
+
+        <h3 class="fw-bolder text-dark mb-3 display-6">
+            Our Mission
+        </h3>
+
+        <p class="text-muted fs-5 mb-4 line-height-lg">
+            DermaLens leverages Deep Learning and Computer Vision techniques to assist in the preliminary detection of
+            skin cancer.
+            Our advanced Convolutional Neural Network analyzes lesion patterns, texture variations, and color
+            distribution to provide
+            rapid, data-backed risk assessments.
+        </p>
+
+        <div class="glass-panel p-4 border-start border-4 border-primary mb-4 bg-light">
+            <p class="text-dark mb-0 fst-italic fw-medium">
+                "Our goal is to dramatically reduce the time strictly required for preliminary diagnosis, support busy
+                medical professionals,
+                and improve patient survival rates through intelligent automation."
+            </p>
+        </div>
+
+        <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-2"></i> Core Advantages
+        </h5>
+
+        <ul class="list-unstyled text-muted ps-1">
+            <li class="mb-2 d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> High
+                accuracy AI-powered CNN model</li>
+            <li class="mb-2 d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i>
+                Instantaneous real-time prediction results</li>
+            <li class="mb-2 d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i>
+                Intuitive and user-friendly interface</li>
+            <li class="mb-2 d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> Secure
+                and entirely private image processing</li>
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- ================= SECOND SECTION ================= -->
+<div class="row align-items-center mt-5 pt-4 border-top border-light reverse-mobile">
+
+    <!-- TEXT LEFT -->
+    <div class="col-lg-6 pe-lg-5 animate-on-scroll delay-1">
+
+        <h2 class="display-6 fw-bold text-dark mb-4">
+            Advanced Technology at Scale
+        </h2>
+
+        <p class="text-muted fs-5 mb-4">
+            Our infrastructure integrates Python, TensorFlow, and Keras to serve a Convolutional Neural Network (CNN)
+            trained extensively on thousands of dermoscopic images. It is tuned to distinguish microscopic tell-tale
+            signs
+            of malignant growth from benign anomalies.
+        </p>
+
+        <!-- <div class="d-flex gap-3 mb-4 flex-wrap">
+            <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill fs-6"><i class="bi bi-code-slash me-1"></i> Python</span>
+            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fs-6"><i class="bi bi-cpu me-1"></i> TensorFlow</span>
+            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fs-6"><i class="bi bi-server me-1"></i> Flask App</span>
+        </div> -->
+
+        <p class="text-muted">
+            The system works specifically to support healthcare professionals in obtaining second opinions, and to
+            enable preliminary screening in low-resource settings using intelligent AI-driven analytics.
+        </p>
+
+        <a href="{{ url_for('contact') }}" class="btn btn-outline-primary rounded-pill px-4 mt-2">Get in touch <i
+                class="bi bi-arrow-right ms-1"></i></a>
+
+    </div>
+
+    <!-- IMAGE RIGHT -->
+    <div class="col-lg-6 mb-4 mb-lg-0 text-center animate-on-scroll delay-2">
+        <div class="glass-panel p-3 d-inline-block">
+            <img src="{{ url_for('static', filename='images/about2.png') }}" class="img-fluid rounded-4 shadow-sm"
+                alt="AI Medical Technology"
+                onerror="this.src='https://images.unsplash.com/photo-1583324113626-70df0f4deaab?q=80&w=1632&auto=format&fit=crop'"
+                style="max-height: 400px; object-fit: cover;">
+        </div>
+    </div>
+
+</div>
+
+<style>
+    @media (max-width: 991.98px) {
+        .reverse-mobile {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .reverse-mobile .text-start {
+            text-align: center !important;
+        }
+    }
+
+    .line-height-lg {
+        line-height: 1.8;
+    }
+</style>
+
+{% endblock %}

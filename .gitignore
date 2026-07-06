@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+dlenv/
+env/
+
+# Environment Variables
+.env
+
+# Flask
+instance/
+.webassets-cache
+
+# Build files
+build/
+dist/
+downloads/
+.eggs/
+*.egg-info/
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Database files
+*.sqlite3
+
+# User uploaded images
+static/uploads/
+
+# ML Model
+skin_cancer_cnn.h5

@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<div class="container mb-5 custom-hero">
+    <div class="row align-items-center reverse-mobile">
+
+        <div class="col-lg-6 hero-text-section pe-lg-5 animate-on-scroll delay-1">
+            <h1 class="display-3 fw-bolder mb-3 text-dark">
+                Intelligent <span class="text-primary">Skin Cancer</span> Detection
+            </h1>
+            <p class="lead text-muted mb-4 pe-lg-4 fs-4">
+                Early detection saves lives. Upload your skin image and let DermaLens analyze it seamlessly using
+                advanced deep learning technology.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                {% if logged_in %}
+                <!-- ENABLED -->
+                <a href="{{ url_for('predict') }}"
+                    class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg btn-pulse d-flex align-items-center">
+                    <span class="fs-5 me-2">Start Analysis</span>
+                    <i class="bi bi-arrow-right fs-4"></i>
+                </a>
+                {% else %}
+                <!-- LOCKED -->
+                <a href="{{ url_for('register') }}"
+                    class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm d-flex align-items-center text-decoration-none">
+                    Get Started
+                </a>
+                <a href="{{ url_for('login') }}"
+                    class="btn btn-outline-secondary btn-lg rounded-pill px-5 shadow-sm d-flex align-items-center bg-white text-decoration-none">
+                    Login
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-6 position-relative hero-image-section pb-4 pb-lg-0 animate-on-scroll delay-2">
+            <!-- Glassmorphism Card Wrapper for Image -->
+            <div class="glass-panel p-3">
+                <img src="{{ url_for('static', filename='images/about.png') }}"
+                    class="img-fluid rounded-4 shadow-sm w-100" alt="Dermatology Analysis"
+                    onerror="this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1470&auto=format&fit=crop'"
+                    style="object-fit: cover; max-height: 500px;">
+
+                <!-- Floating Badge Animation -->
+                <!-- <div class="position-absolute bottom-0 start-0 translate-middle shadow-lg bg-white rounded-pill px-4 py-3 d-flex align-items-center"
+                    style="animation: float 6s infinite ease-in-out alternate; margin-left: 20%; margin-bottom: 5%;">
+                    <div class="bg-success rounded-circle me-3 d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;">
+                        <i class="bi bi-check-lg text-white fs-5"></i>
+                    </div>
+                    <div>
+                         <h6 class="mb-0 fw-bold">AI Accuracy</h6> -->
+                <!-- <small class="text-muted">High Precision Data</small> -->
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- WHY SECTION -->
+<div class="container text-center py-5 mt-5 border-top" style="border-top-color: rgba(0,0,0,0.05) !important;">
+
+    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 fw-semibold animate-on-scroll">
+        POWERED BY AI
+    </span>
+
+    <h2 class="display-5 fw-bold text-dark mb-3 animate-on-scroll delay-1">
+        Why Choose DermaLens?
+    </h2>
+
+    <p class="text-muted fs-5 mb-5 mx-auto animate-on-scroll delay-2" style="max-width: 600px;">
+        Empowering patients and dermatologists with intelligent support for preliminary screening.
+    </p>
+
+    <div class="row g-4 mt-2 px-xl-5">
+
+        <!-- Card 1 -->
+        <div class="col-lg-4 col-md-6 animate-on-scroll delay-1">
+            <div class="glass-panel h-100 p-5 text-center position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 p-4 opacity-10">
+                    <i class="bi bi-search" style="font-size: 8rem; color: var(--primary);"></i>
+                </div>
+
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow-sm"
+                    style="width: 80px; height: 80px; font-size: 2rem; position: relative; z-index: 2;">
+                    <i class="bi bi-search-heart"></i>
+                </div>
+
+                <h4 class="fw-bold mb-3 position-relative z-index-2">Early Detection</h4>
+                <p class="text-muted position-relative z-index-2 mb-0">
+                    Identify potential issues early. Our deep learning algorithms analyze skin textures at the
+                    microscopic level.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-lg-4 col-md-6 animate-on-scroll delay-2">
+            <div class="glass-panel h-100 p-5 text-center position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 p-4 opacity-10">
+                    <i class="bi bi-cpu" style="font-size: 8rem; color: var(--secondary);"></i>
+                </div>
+
+                <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow"
+                    style="width: 80px; height: 80px; font-size: 2rem; position: relative; z-index: 2;">
+                    <i class="bi bi-cpu"></i>
+                </div>
+
+                <h4 class="fw-bold mb-3 position-relative z-index-2">CNN Accuracy</h4>
+                <p class="text-muted position-relative z-index-2 mb-0">
+                    Driven by an advanced Convolutional Neural Network (CNN) trained on vast datasets of dermoscopic
+                    imagery.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-lg-4 col-md-12 animate-on-scroll delay-3">
+            <div class="glass-panel h-100 p-5 text-center position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 p-4 opacity-10">
+                    <i class="bi bi-lightning-charge" style="font-size: 8rem; color: #ffc107;"></i>
+                </div>
+
+                <div class="bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow-sm"
+                    style="width: 80px; height: 80px; font-size: 2rem; position: relative; z-index: 2;">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+
+                <h4 class="fw-bold mb-3 position-relative z-index-2">Instant Results</h4>
+                <p class="text-muted position-relative z-index-2 mb-0">
+                    No more anxious waiting. Receive an immediate AI-based preliminary prediction analysis right from
+                    your browser.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* Home specific reverse mobile row logic */
+    @media (max-width: 991.98px) {
+        .reverse-mobile {
+            flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .hero-text-section {
+            margin-top: 2rem;
+        }
+
+        .hero-text-section .d-flex {
+            justify-content: center;
+        }
+    }
+</style>
+
+{% endblock %}

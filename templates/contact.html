@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="text-center mb-5 animate-on-scroll">
+    <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-2 mb-3 fw-semibold">
+        SUPPORT
+    </span>
+    <h1 class="fw-bold section-title display-5 text-dark">Get in Touch</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        Have questions about the DermaLens AI system or patient access? 
+        Reach out to our support team.
+    </p>
+</div>
+
+<div class="row justify-content-center pb-5">
+    
+    <!-- Contact Info Cards -->
+    <div class="col-lg-4 mb-4 mb-lg-0 pe-lg-4 animate-on-scroll delay-1">
+        
+        <div class="glass-panel p-4 mb-4 d-flex align-items-center shadow-sm">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px;">
+                <i class="bi bi-envelope-fill fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold text-dark mb-1">Email Us</h6>
+                <p class="text-muted mb-0 small">dermalens@gmail.com</p>
+            </div>
+        </div>
+
+        <div class="glass-panel p-4 mb-4 d-flex align-items-center shadow-sm">
+            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px;">
+                <i class="bi bi-telephone-fill fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold text-dark mb-1">Call Us</h6>
+                <p class="text-muted mb-0 small">+91 9999999999</p>
+            </div>
+        </div>
+
+        <div class="glass-panel p-4 d-flex align-items-center shadow-sm">
+            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px;">
+                <i class="bi bi-geo-alt-fill fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold text-dark mb-1">Visit Us</h6>
+                <p class="text-muted mb-0 small">Sector 15, Gandhinagar, 382015</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Contact Form -->
+    <div class="col-lg-6 animate-on-scroll delay-2">
+        <div class="glass-panel p-4 p-md-5">
+            <h3 class="fw-bold text-dark mb-4">Send a Message</h3>
+            
+            <form method="POST">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="name" id="contactName" placeholder="Your Name" required>
+                            <label for="contactName" class="text-muted">Full Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" name="email" id="contactEmail" placeholder="Your Email" required>
+                            <label for="contactEmail" class="text-muted">Email Address</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <textarea class="form-control" name="message" id="contactMessage" placeholder="Your Message" style="height: 150px" required></textarea>
+                    <label for="contactMessage" class="text-muted">How can we help you?</label>
+                </div>
+
+                <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-sm" type="submit">
+                    <i class="bi bi-send-fill me-2"></i> Send Message
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
